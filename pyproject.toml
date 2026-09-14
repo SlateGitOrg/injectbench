@@ -1,0 +1,14 @@
+[project]
+name = "injectbench"
+version = "0.1.0"
+description = "Prompt-injection evaluation reporting attack success rate by taxonomy with intervals, and the ablation showing which guardrail earns its cost."
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
