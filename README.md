@@ -2,6 +2,22 @@
 
 > Prompt-injection evaluation reporting attack success rate by taxonomy with intervals, and the ablation showing which guardrail earns its cost.
 
+## Live deployment
+
+[![CI and deployment](https://github.com/SlateGitOrg/injectbench/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/SlateGitOrg/injectbench/actions/workflows/ci.yml)
+
+[Open the interactive InjectBench demo](https://slategitorg.github.io/injectbench/)
+
+The deployed interface uses a deterministic offline scenario to make the repository's tested decision rule visible without external services or private data.
+
+### Desktop
+
+![InjectBench desktop deployment](docs/assets/deployed-desktop.png)
+
+### Mobile
+
+<img src="docs/assets/deployed-mobile.png" alt="InjectBench mobile deployment" width="390">
+
 > **Implementation note.** No local model, Ollama, weights or paid API are used or required. The system under test is a **deterministic simulated target** (`src/target.py`) behind a small `Target` protocol: a toy assistant whose per-category susceptibility and per-defence blocking are seeded ground truth planted in `src/taxonomy.py`. All numbers in this README are measured on that simulator and validate the *harness* (intervals, ablation, controls, regression check), not any real model. Other substitutions: a stdlib text report from `python -m src.demo` instead of Typer CLI + HTML; `unittest` instead of pytest; a synthetic, deliberately non-operational corpus generator (`src/corpus.py`) instead of garak probes; the taxonomy's fifth class is `roleplay_framing` rather than multi-turn priming (the simulator has no conversation state). To plug in a real model, implement `Target.attempt(attack, enabled_defences) -> bool` (wrap your app, run the attack text through its real defences, and return whether the injected goal was achieved, e.g. by a canary tool call) and pass it to `harness.evaluate`. Authorised defensive testing of systems you own only.
 
 
